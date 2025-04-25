@@ -3,11 +3,10 @@ package com.mountaintrails.task_tracker.user.service
 import com.mountaintrails.task_tracker.user.model.UserRequest
 import com.mountaintrails.task_tracker.user.model.Users
 import com.mountaintrails.task_tracker.user.repository.UserRepository
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
-import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -19,6 +18,11 @@ class UserServiceIntegrationTest(
     @Autowired
     private val userService: UserService
 ) {
+
+    @AfterEach
+    fun tearDown() {
+        userRepository.deleteAll()
+    }
 
     @Test
     fun testRegisterUser_emailExists() {

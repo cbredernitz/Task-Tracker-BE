@@ -44,6 +44,7 @@ dependencies {
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	implementation("org.flywaydb:flyway-core")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("org.postgresql:postgresql")
@@ -74,9 +75,11 @@ tasks.withType<Test> {
 
 
 
-// wir
+
 sourceSets {
 	create("integrationTest") {
+		java.srcDir("src/integrationTest/kotlin")
+		resources.srcDir("src/integrationTest/resources")
 		compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
 		runtimeClasspath += output + compileClasspath
 	}
@@ -84,9 +87,14 @@ sourceSets {
 
 
 // custom task specific for running IntegrationTests with H2 database
-tasks.register("integrationTests") {
+tasks.register<Test>("integrationTest") {
 	group = "verification"
 	description = "Runs integration tests with the h2 profile"
+
+	testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+	classpath = sourceSets["integrationTest"].runtimeClasspath
+
+	useJUnitPlatform()
 
 	// Set the active Spring profile
 	systemProperty("spring.profiles.active", "test")
