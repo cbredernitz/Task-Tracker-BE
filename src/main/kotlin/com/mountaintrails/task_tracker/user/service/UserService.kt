@@ -4,7 +4,6 @@ import com.mountaintrails.task_tracker.user.model.UserRequest
 import com.mountaintrails.task_tracker.user.model.Users
 import com.mountaintrails.task_tracker.user.repository.UserRepository
 import org.springframework.stereotype.Service
-import java.util.*
 
 interface UserService {
     // register a new user; sign up flow
@@ -25,6 +24,7 @@ class UserServiceImpl(
             throw IllegalArgumentException("email or username already exists")
         }
 
+        // todo map this to a response object later and adjust it. I dont want the controller to return an entity.
         return userRepository.save(
             Users(
                 username = userRequest.username,
