@@ -1,7 +1,10 @@
 spring:
+  config:
+    activate:
+      on-profile: test
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
+    driver-class-name: org.postgresql.Driver
     username: sa
     password:
   jpa:
@@ -16,4 +19,4 @@ spring:
       enabled: true
   flyway:
     enabled: true
-    locations: classpath:db/migration
+    locations: classpath:main/resources/db/migration

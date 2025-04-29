@@ -46,7 +46,7 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("org.flywaydb:flyway-core")
 	compileOnly("org.projectlombok:lombok")
-	runtimeOnly("com.h2database:h2")
+	runtimeOnly("com.h2database:h2:2.2.224")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -77,10 +77,10 @@ tasks.withType<Test> {
 
 
 sourceSets {
-	create("integrationTest") {
+	val integrationTest by creating {
 		java.srcDir("src/integrationTest/kotlin")
 		resources.srcDir("src/integrationTest/resources")
-		compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+		compileClasspath += sourceSets["main"].output + sourceSets["main"].resources + configurations["testRuntimeClasspath"]
 		runtimeClasspath += output + compileClasspath
 	}
 }
