@@ -1,5 +1,6 @@
 package com.mountaintrails.task_tracker.user
 
+import com.mountaintrails.task_tracker.exceptions.UserAlreadyExistsException
 import org.springframework.stereotype.Service
 
 interface UserService {
@@ -18,7 +19,7 @@ class UserServiceImpl(
     override fun registerUser(userRequest: UserRequest): UserResponse {
         // check if the username or password has been taken
         if (userRepository.existsByEmail(userRequest.email) || userRepository.existsByUsername(userRequest.username)) {
-            throw IllegalArgumentException("email or username already exists")
+            throw UserAlreadyExistsException("User already exists")
         }
 
         var user = userRepository.save(

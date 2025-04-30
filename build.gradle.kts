@@ -3,7 +3,7 @@ import org.gradle.internal.classpath.Instrumented.systemProperty
 plugins {
 	kotlin("jvm") version "2.1.20"
 	kotlin("plugin.spring") version "2.1.20"
-	id("org.springframework.boot") version "3.4.4"
+	id("org.springframework.boot") version "3.4.5"
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "2.1.20"
 }
@@ -39,7 +39,9 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.slf4j:slf4j-api:2.0.9")
+//	implementation("jakarta.servlet:jakarta.servlet-api:6.0.0")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -54,6 +56,7 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
 	testImplementation("org.springframework.security:spring-security-test")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
