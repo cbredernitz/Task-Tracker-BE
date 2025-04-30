@@ -1,8 +1,9 @@
 package com.mountaintrails.task_tracker.user.service
 
-import com.mountaintrails.task_tracker.user.model.UserRequest
-import com.mountaintrails.task_tracker.user.model.Users
-import com.mountaintrails.task_tracker.user.repository.UserRepository
+import com.mountaintrails.task_tracker.user.UserRequest
+import com.mountaintrails.task_tracker.user.Users
+import com.mountaintrails.task_tracker.user.UserRepository
+import com.mountaintrails.task_tracker.user.UserService
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,4 +1,4 @@
-package com.mountaintrails.task_tracker.user.model
+package com.mountaintrails.task_tracker.user
 
 import jakarta.persistence.*
 import lombok.Builder
@@ -34,3 +34,12 @@ data class UserResponse(
     val email: String,
     val passwordHash: String
 )
+
+fun Users.toResponse(): UserResponse {
+    return UserResponse(
+        id = this.id!!,
+        username = this.username,
+        email = this.email,
+        passwordHash = this.passwordHash,
+    )
+}

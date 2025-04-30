@@ -1,11 +1,11 @@
 import org.gradle.internal.classpath.Instrumented.systemProperty
 
 plugins {
-	kotlin("jvm") version "2.1.0"
-	kotlin("plugin.spring") version "1.9.25"
+	kotlin("jvm") version "2.1.20"
+	kotlin("plugin.spring") version "2.1.20"
 	id("org.springframework.boot") version "3.4.4"
 	id("io.spring.dependency-management") version "1.1.7"
-	kotlin("plugin.jpa") version "1.9.25"
+	kotlin("plugin.jpa") version "2.1.20"
 }
 
 group = "com.mountaintrails"
@@ -72,8 +72,6 @@ allOpen {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-
-
 
 
 sourceSets {
