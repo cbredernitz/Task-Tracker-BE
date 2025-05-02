@@ -2,7 +2,10 @@ package com.mountaintrails.task_tracker.user
 
 import jakarta.persistence.*
 import lombok.Builder
+import java.time.LocalDateTime
+import java.util.Date
 import java.util.UUID
+
 
 @Entity
 @Table(name = "users")
@@ -17,8 +20,22 @@ data class Users(
     val email: String,
 
     @Column(nullable = false, unique = true)
-    val passwordHash: String
+    val passwordHash: String,
+
+    @Column(nullable = false)
+    val roles: Role,
+
+    @Column(nullable = false)
+    val createdDate: LocalDateTime,
+
+    @Column(nullable = true)
+    val updatedDate: LocalDateTime? = null
 )
+
+enum class Role {
+    USER,
+    ADMIN,
+}
 
 @Builder
 data class UserRequest(
@@ -31,15 +48,11 @@ data class UserRequest(
 data class UserResponse(
     val id: UUID,
     val username: String,
-    val email: String,
-    val passwordHash: String
 )
 
 fun Users.toResponse(): UserResponse {
     return UserResponse(
         id = this.id!!,
         username = this.username,
-        email = this.email,
-        passwordHash = this.passwordHash,
     )
 }

@@ -12,3 +12,5 @@ The `application-test.yml` file is the active profile for these, which includes 
 ./gradlew integrationTest
 ```
 
+Architecture of database
+
