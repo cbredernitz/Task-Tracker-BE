@@ -1,6 +1,7 @@
 package com.mountaintrails.task_tracker.user
 
 import com.mountaintrails.task_tracker.exceptions.UserAlreadyExistsException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 interface UserService {
@@ -13,7 +14,8 @@ interface UserService {
 
 @Service
 class UserServiceImpl(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder
 ): UserService {
 
     override fun registerUser(userRequest: UserRequest): UserResponse {
@@ -22,11 +24,14 @@ class UserServiceImpl(
             throw UserAlreadyExistsException("User already exists")
         }
 
+        // encrypt the password to database
+        val passwordEncrypt = passwordEncoder.encode(userRequest.passwordHash)
+
         var user = userRepository.save(
                 Users(
                     username = userRequest.username,
                     email = userRequest.email,
-                    passwordHash = userRequest.passwordHash
+                    passwordHash = passwordEncrypt
                 )
         )
 

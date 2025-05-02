@@ -1,5 +1,6 @@
 package com.mountaintrails.task_tracker.user.service
 
+import com.mountaintrails.task_tracker.exceptions.UserAlreadyExistsException
 import com.mountaintrails.task_tracker.user.UserRequest
 import com.mountaintrails.task_tracker.user.Users
 import com.mountaintrails.task_tracker.user.UserRepository
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 @SpringBootTest
 class UserServiceIntegrationTest(
@@ -40,7 +42,7 @@ class UserServiceIntegrationTest(
             email = "trailblazer@mail.com",
             passwordHash = "bkjbawdUAGWdukbkadlbAdho8dhaowdblakwbdIbajbdAKJd"
         )
-        assertThrows<IllegalArgumentException> {
+        assertThrows<UserAlreadyExistsException> {
             userService.registerUser(request)
         }
     }
@@ -60,7 +62,7 @@ class UserServiceIntegrationTest(
             email = "newEmail@mail.com",
             passwordHash = "bkjbawdUAGWdukbkadlbAdho8dhaowdblakwbdIbajbdAKJd"
         )
-        assertThrows<IllegalArgumentException> {
+        assertThrows<UserAlreadyExistsException> {
             userService.registerUser(request)
         }
     }
@@ -79,5 +81,6 @@ class UserServiceIntegrationTest(
 
         assertEquals("BillyJoel", user.get().username)
         assertEquals("newEmail@mail.com", user.get().email)
+        assertNotEquals(request.passwordHash, user.get().passwordHash)
     }
 }
